@@ -1,18 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ValidatorLoginCustom } from '../helper/validator-login';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
-  formLogin!: FormGroup
+  formLogin!: FormGroup;
+
+  subscribs: Subscription[] = [];
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
+    private service: AuthService
   ) {
   }
 
@@ -20,9 +27,13 @@ export class LoginComponent implements OnInit {
     this.initForm();
   }
 
+  ngOnDestroy(): void {
+    this.subscribs.forEach(sub => sub.unsubscribe());
+  }
+
   initForm() {
     this.formLogin = this.fb.group({
-      email: [null, Validators.compose([
+      username: [null, Validators.compose([
         Validators.required,
         Validators.email,
         ValidatorLoginCustom.userNameValidator()
@@ -33,17 +44,30 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  onSubmit(data: any) {
+  get emailValue() {
+    return this.formLogin.get('username')?.value
+  }
 
+  onSubmit(data: any) {
     // Make sure All Input valid
-    Object.keys(this.formLogin.controls).forEach(field => {
+    for (let field of Object.keys(this.formLogin.controls)) {
       const control = this.formLogin.get(field);
       control?.markAsTouched({ onlySelf: true });
-    });
+    }
 
-    console.log(data);
     if (this.formLogin.valid) {
       console.log('Form Valid');
+
+      let data = this.formLogin.value;
+
+      const sub = this.service.login(data).subscribe(value => {
+        this.router.navigate(['/employee']);
+      },
+        error => {
+          this.formLogin.get('password')?.setErrors({ wrongPassword: true })
+        });
+
+      this.subscribs.push(sub);
     } else {
       console.log('Form Tidak Valid');
     }

@@ -1,0 +1,12 @@
+<nav class="sticky top-0 py-2 w-full flex justify-between items-center px-6 z-50 bg-white shadow-box">
+  <div [ngClass]="showBack ? '' : 'invisible' " class="w-36">
+    <button (click)="back()" class="w-16 py-1 px-4 text-base bg-uk-neutral-6 text-white rounded-md">
+      Back
+    </button>
+  </div>
+  <h1 class="mx-auto text-xl flex items-center">{{title}}</h1>
+  <button (click)="navigateTo('/employee/add')" [ngClass]="showAdd ? '' : 'invisible' "
+    class="w-36 px-4 py-1 text-base bg-uk-blue-5 text-white rounded-full">
+    Add Employer
+  </button>
+</nav>

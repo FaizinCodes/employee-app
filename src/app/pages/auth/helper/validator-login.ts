@@ -11,15 +11,15 @@ export class ValidatorLoginCustom {
 
   static MatchPassword(userName: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      if (userName == 'admin@email.com') {
+      console.log(userName);
+
+      if (!userName) {
+        return { usernameEmpty: true }
+      } else if (userName == 'admin@email.com') {
         return (control.value == 'admin123')
           ? null
           : { wrongPassword: true }
 
-      } else if (userName == 'superuser@email.com') {
-        return (control.value == 'super123')
-          ? null
-          : { wrongPassword: true }
       } else {
         return { wrongUserName: true }
       }

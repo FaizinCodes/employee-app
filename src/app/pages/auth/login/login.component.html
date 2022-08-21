@@ -5,16 +5,17 @@
       <h1 class="text-center text-2xl">Sign In.</h1>
 
       <form [formGroup]="formLogin" (ngSubmit)="onSubmit($event)" class="flex flex-col space-y-4">
-        <label for="email" class="text-sm flex- flex-col space-y-2">
+        <label for="username" class="text-sm flex- flex-col space-y-2">
           <p>Email</p>
-          <input type="text" formControlName="email" id="email"
-            [ngClass]="(formLogin.get('email')?.invalid && (formLogin.get('email')?.touched || formLogin.get('email')?.dirty))  ? 'input-red-error' : 'input-bg-active-white'"
+          <input type="text" formControlName="username" id="username"
+            [ngClass]="(formLogin.get('username')?.invalid && (formLogin.get('username')?.touched || formLogin.get('username')?.dirty))  ? 'input-red-error' : 'input-bg-active-white'"
             class="w-full text-black">
           <ng-container
-            *ngIf="formLogin.get('email')?.invalid && (formLogin.get('email')?.touched || formLogin.get('email')?.dirty)">
-            <p *ngIf="formLogin.get('email')?.hasError('email')" class="text-red-500">Email Tidak Valid</p>
-            <p *ngIf="formLogin.get('email')?.hasError('required')" class="text-red-500">Email Harus diisi</p>
-            <p *ngIf="formLogin.get('email')?.hasError('usernameNotFound') && !formLogin.get('email')?.hasError('required') && !formLogin.get('email')?.hasError('email')"
+            *ngIf="formLogin.get('username')?.invalid && (formLogin.get('username')?.touched || formLogin.get('username')?.dirty)">
+            <p *ngIf="formLogin.get('username')?.hasError('username')" class="text-red-500">Email Tidak Valid</p>
+            <p *ngIf="formLogin.get('username')?.hasError('required') || formLogin.get('password')?.hasError('usernameEmpty')"
+              class="text-red-500">Email Harus diisi</p>
+            <p *ngIf="(formLogin.get('username')?.hasError('usernameNotFound') && !formLogin.get('username')?.hasError('required') && !formLogin.get('username')?.hasError('username')) || formLogin.get('password')?.hasError('wrongUserName')"
               class="text-red-500">Email Tidak
               Terdaftar</p>
           </ng-container>
@@ -26,7 +27,9 @@
             class="w-full text-black">
           <ng-container
             *ngIf="formLogin.get('password')?.invalid && (formLogin.get('password')?.touched || formLogin.get('password')?.dirty)">
-            <p *ngIf="formLogin.get('email')?.hasError('required')" class="text-uk-danger-3">Password Tidak Valid</p>
+            <p *ngIf="formLogin.get('password')?.hasError('required')" class="text-uk-danger-3">Password Harus diisi</p>
+            <p *ngIf="formLogin.get('password')?.hasError('wrongPassword') && !formLogin.get('password')?.hasError('required')"
+              class="text-uk-danger-3">Password Salah</p>
           </ng-container>
         </label>
 

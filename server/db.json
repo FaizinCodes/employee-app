@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin@email.com",
+      "country": "australia",
+      "password": "admin123"
+    }
+  ],
+  "employee": [
+    {
+      "username": "fais",
+      "firstName": "muhammammad",
+      "lastName": "faizin",
+      "email": "faizinmu88@gmail.com",
+      "birthDate": "28/01/1998",
+      "basicSalary": 10000000,
+      "status": "active",
+      "group": "IT",
+      "description": "22/08/2022"
+    }
+
+  ]
+
+}
