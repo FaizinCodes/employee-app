@@ -24,7 +24,7 @@
         <ng-container *ngFor="let item of listLength">
           <label [for]="item" class="flex items-center space-x-2" (change)="changeLimit()">
             <input type="radio" [id]="item" [value]="item" [(ngModel)]="lengthData">
-            <p>{{item}} Data</p>
+            <p class="flex items-center font-roboto text-base">{{item}} Data</p>
           </label>
         </ng-container>
       </div>
@@ -46,7 +46,7 @@
   </div>
 
   <div class="overflow-x-auto relative shadow-md sm:rounded-lg w-full pb-3 z-20"
-    style="max-height: calc(100vh - 175px);">
+    style="max-height: calc(100vh - 190px);">
     <table class="w-full text-sm text-left text-gray-500 ">
       <thead class="text-xs text-white uppercase bg-uk-blue-5 sticky top-0 z-20">
         <tr>
