@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn-primary {
+  background-color: #1A5289 !important;
+  @apply rounded-md py-4;
+}
+
+.input-red-error {
+  @apply bg-uk-danger-1 rounded-input h-input border-0 outline-none;
+}
+
+.input-bg-active-white {
+  @apply bg-uk-neutral-1;
+  border: 1px solid #6bb9cd !important;
+  height: 40px;
+}
