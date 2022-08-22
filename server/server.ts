@@ -30,7 +30,7 @@ server.post('/employee', (req: any, res: any) => {
 server.post('/employee/add', (req: any, res: any) => {
   db.employee.push(req.body);
   readEmployee();
-  res.send('Success add data!');
+  res.send({ message: 'Success add data!' });
 });
 
 server.get('/users', (req: any, res: any) => {

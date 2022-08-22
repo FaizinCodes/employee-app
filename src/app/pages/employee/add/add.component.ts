@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ValidatorAddEmployer } from '../helper/add-employee-validator';
 import { EmployeeService } from '../service/employee.service';
@@ -31,7 +32,8 @@ export class AddComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private service: EmployeeService,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -105,6 +107,7 @@ export class AddComponent implements OnInit, OnDestroy {
       console.log(this.formAddNewEmployer.value);
       const sub = this.service.addEmployer(this.formAddNewEmployer.value).subscribe(res => {
         console.log(res);
+        this.router.navigate(['/employee']);
       });
 
       this.subscribs.push(sub);
