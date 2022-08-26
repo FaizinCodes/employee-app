@@ -1,138 +1,14 @@
 <app-header [title]="tittle" [showAdd]="false"></app-header>
 <section class="mx-6 flex flex-col items-center py-10" style="height: calc(100vh - 86px);">
   <div class="p-4 bg-white shadow-box rounded-md w-full" style="max-width: 1000px;">
-    <form [formGroup]="formAddNewEmployer" (ngSubmit)="onSubmit($event)" class="flex flex-col space-y-4 w-full">
-      <label id="group" class="flex flex-col relative">
-        <p class="block text-sm font-medium text-gray-900 dark:text-gray-300">Group</p>
-        <mat-select required formControlName="group" name="group" id="group"
-          [ngClass]="(formAddNewEmployer.get('group')?.invalid && (formAddNewEmployer.get('group')?.touched || formAddNewEmployer.get('group')?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-          class=" py-2.5 px-3 text-gray-900 text-sm rounded-lg" placeholder="Pilih Group">
-          <mat-option class="relative w-full">
-            <ngx-mat-select-search placeholderLabel="Cari Group" noEntriesFoundLabel="Group tidak ditemukan"
-              [formControl]="searchGroup">
-              <mat-icon ngxMatSelectSearchClear></mat-icon>
-            </ngx-mat-select-search>
-          </mat-option>
-          <mat-option class="capitalize" *ngFor="let group of listShow" [value]="group">
-            {{ group }}
-          </mat-option>
-        </mat-select>
-        <ng-container
-          *ngIf="formAddNewEmployer.get('group')?.invalid && (formAddNewEmployer.get('group')?.touched || formAddNewEmployer.get('group')?.dirty)">
-          <p class="text-uk-danger-3">Group must be filled</p>
-        </ng-container>
-      </label>
+    <form [formGroup]="formAddNewEmployer" (ngSubmit)="onSubmit($event)" class="flex flex-col space-y-4 w-full h-full">
 
-      <div class="flex flex-col space-y-1">
-        <label for="first" class="block text-sm font-medium text-gray-900 dark:text-gray-300">First Name</label>
-        <input type="text" formControlName="firstName" id="first"
-          [ngClass]="(formAddNewEmployer.get('firstName')?.invalid && (formAddNewEmployer.get('firstName')?.touched || formAddNewEmployer.get('firstName')?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-          class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-          required>
-        <ng-container
-          *ngIf="(formAddNewEmployer.get('firstName')?.invalid && (formAddNewEmployer.get('firstName')?.touched || formAddNewEmployer.get('firstName')?.dirty))">
-          <p class="text-uk-danger-3">First Name must be filled</p>
-        </ng-container>
-      </div>
-      <div class="flex flex-col space-y-1">
-        <label for="last" class="block text-sm font-medium text-gray-900 dark:text-gray-300">Last Name</label>
-        <input type="text" formControlName="lastName" id="last"
-          [ngClass]="(formAddNewEmployer.get('lastName')?.invalid && (formAddNewEmployer.get('lastName')?.touched || formAddNewEmployer.get('lastName')?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-          class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-          required>
-        <ng-container
-          *ngIf="(formAddNewEmployer.get('lastName')?.invalid && (formAddNewEmployer.get('lastName')?.touched || formAddNewEmployer.get('lastName')?.dirty))">
-          <p class="text-uk-danger-3">Last Name must be filled</p>
-        </ng-container>
-      </div>
-      <div class="flex flex-col space-y-1">
-        <label for="username" class="block text-sm font-medium text-gray-900 dark:text-gray-300">Username</label>
-        <input type="text" formControlName="username" id="username"
-          [ngClass]="(formAddNewEmployer.get('username')?.invalid && (formAddNewEmployer.get('username')?.touched || formAddNewEmployer.get('username')?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-          class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-          required>
-        <ng-container
-          *ngIf="(formAddNewEmployer.get('username')?.invalid && (formAddNewEmployer.get('username')?.touched || formAddNewEmployer.get('username')?.dirty))">
-          <p class="text-uk-danger-3">Username must be filled</p>
-        </ng-container>
-      </div>
-      <div class="flex flex-col space-y-1">
-        <label for="email" class="block text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
-        <input type="email" formControlName="email" id="email"
-          [ngClass]="(formAddNewEmployer.get('email')?.invalid && (formAddNewEmployer.get('email')?.touched || formAddNewEmployer.get('email')?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-          class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-          placeholder="name@email.com" required>
-        <ng-container
-          *ngIf="(formAddNewEmployer.get('email')?.invalid && (formAddNewEmployer.get('email')?.touched || formAddNewEmployer.get('email')?.dirty))">
-          <p *ngIf="formAddNewEmployer.get('email')?.hasError('required')" class="text-uk-danger-3">Email must be filled
-          </p>
-          <p *ngIf="formAddNewEmployer.get('email')?.hasError('email') && !formAddNewEmployer.get('email')?.hasError('required')"
-            class="text-uk-danger-3">Email not valid</p>
-        </ng-container>
-      </div>
-      <div class="flex flex-col space-y-1">
-        <label for="basicSalary" class="block text-sm font-medium text-gray-900 dark:text-gray-300">Basic Salary
-          (Rp.)</label>
-        <input currencyMask formControlName="basicSalary" id="basicSalary"
-          [ngClass]="(formAddNewEmployer.get('basicSalary')?.invalid && (formAddNewEmployer.get('basicSalary')?.touched || formAddNewEmployer.get('basicSalary')?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-          class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-          required>
-        <ng-container
-          *ngIf="(formAddNewEmployer.get('basicSalary')?.invalid && (formAddNewEmployer.get('basicSalary')?.touched || formAddNewEmployer.get('basicSalary')?.dirty))">
-          <p class="text-uk-danger-3">Salary must be filled</p>
-        </ng-container>
-      </div>
-      <div class="flex flex-col space-y-1">
-        <label for="status" class="block text-sm font-medium text-gray-900 dark:text-gray-300">Status</label>
-        <mat-select required formControlName="status" name="status" id="status"
-          [ngClass]="(formAddNewEmployer.get('status')?.invalid && (formAddNewEmployer.get('status')?.touched || formAddNewEmployer.get('status')?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-          class=" py-2.5 px-3 text-gray-900 text-sm rounded-lg" placeholder="Pilih status">
-          <mat-option class="capitalize" *ngFor="let status of listStatus" [value]="status">
-            {{ status }}
-          </mat-option>
-        </mat-select>
-        <ng-container
-          *ngIf="(formAddNewEmployer.get('status')?.invalid && (formAddNewEmployer.get('status')?.touched || formAddNewEmployer.get('status')?.dirty))">
-          <p class="text-uk-danger-3">Status must be filled</p>
-        </ng-container>
-      </div>
+      <ng-container *ngFor="let data of dataForm; let i = index">
+        <app-input [Form]="formAddNewEmployer" [name]="data.name" [id]="data.id" [type]="data.type"
+          [dataList]="data?.dataList">
+        </app-input>
+      </ng-container>
 
-      <div class="flex flex-col space-y-1">
-        <label for="birthday" class="block text-sm font-medium text-gray-900 dark:text-gray-300">Your
-          Birth Day</label>
-        <div class="relative">
-          <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-              viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd"
-                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <input id="birthday" type="date" formControlName="birthDate"
-            [ngClass]="(formAddNewEmployer.get('birthDate')?.invalid && (formAddNewEmployer.get('birthDate')?.touched || formAddNewEmployer.get('birthDate')?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-            class=" text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-            placeholder="Select date">
-        </div>
-        <ng-container
-          *ngIf="(formAddNewEmployer.get('birthDate')?.invalid && (formAddNewEmployer.get('birthDate')?.touched || formAddNewEmployer.get('birthDate')?.dirty))">
-          <p *ngIf="formAddNewEmployer.get('birthDate')?.hasError('required')" class="text-uk-danger-3">Birth Day must
-            Birth Dayled</p>
-          <p *ngIf="formAddNewEmployer.get('birthDate')?.hasError('dateNotValid') && !formAddNewEmployer.get('birthDate')?.hasError('required')"
-            class="text-uk-danger-3">Birth Day must lower than today</p>
-        </ng-container>
-      </div>
-      <div class="flex flex-col space-y-1">
-        <label for="description" class="block text-sm font-medium text-gray-900 dark:text-gray-300">Description</label>
-        <input type="text" formControlName="description" id="description"
-          [ngClass]="(formAddNewEmployer.get('description')?.invalid && (formAddNewEmployer.get('description')?.touched || formAddNewEmployer.get('description')?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-          class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-          required>
-        <ng-container
-          *ngIf="(formAddNewEmployer.get('description')?.invalid && (formAddNewEmployer.get('description')?.touched || formAddNewEmployer.get('description')?.dirty))">
-          <p class="text-uk-danger-3">Salary must be filled</p>
-        </ng-container>
-      </div>
       <div class="flex items-center space-x-3">
         <button type="submit"
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>

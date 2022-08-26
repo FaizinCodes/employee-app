@@ -5,6 +5,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatSelectModule } from '@angular/material/select';
+import { InputComponent } from './input/input.component';
+import { FormControlName, ReactiveFormsModule } from '@angular/forms';
 
 export const currencyMaskConfigMerchant = {
   align: 'left',
@@ -21,21 +23,24 @@ export const currencyMaskConfigMerchant = {
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    InputComponent
   ],
   imports: [
     CommonModule,
     MatDatepickerModule,
     NgxCurrencyModule.forRoot(currencyMaskConfigMerchant),
     NgxMatSelectSearchModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   exports: [
     HeaderComponent,
     MatDatepickerModule,
     NgxCurrencyModule,
     NgxMatSelectSearchModule,
-    MatSelectModule
+    MatSelectModule,
+    InputComponent
   ]
 })
 export class ComponentModule { }

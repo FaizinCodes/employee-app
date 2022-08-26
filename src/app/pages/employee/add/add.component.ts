@@ -3,7 +3,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { EmployeeFormInitialControl } from '../const/employee-add.const';
 import { ValidatorAddEmployer } from '../helper/add-employee-validator';
+import { formData } from '../model/employee.model';
 import { EmployeeService } from '../service/employee.service';
 
 @Component({
@@ -16,16 +18,7 @@ export class AddComponent implements OnInit, OnDestroy {
   tittle = 'Add New Data Employer';
 
   formAddNewEmployer!: FormGroup;
-  public searchGroup: FormControl = new FormControl();
-
-  listGroup: string[] = ['IT', 'Finance', 'HRD', 'Management', 'EO', 'Documentation', 'Marketing', 'Security', 'OB', 'Legal'];
-  listShow: string[] = [];
-
-  listStatus: string[] = ['singel', 'meried'];
-
-  // searchTimeoutSetting
-  typingTimer: any;
-  doneTypingInterval = 1500;
+  dataForm: formData[] = [];
 
   subscribs: Subscription[] = [];
 
@@ -38,7 +31,7 @@ export class AddComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
-    this.listShow = this.listGroup;
+    this.dataForm = EmployeeFormInitialControl;
   }
 
   ngOnDestroy(): void {
@@ -79,23 +72,7 @@ export class AddComponent implements OnInit, OnDestroy {
         ])]
       }
     );
-
-    this.searchGroup.valueChanges.subscribe(value => {
-      clearTimeout(this.typingTimer);
-      this.typingTimer = setTimeout(() => {
-        this.filterGroup(value);
-      }, this.doneTypingInterval);
-    })
   }
-
-  filterGroup(value: string) {
-    if (value) {
-      this.listShow = this.listGroup.filter(data => { return data.toLowerCase().includes(value.toLowerCase()) })
-    } else {
-      this.listShow = this.listGroup;
-    }
-  }
-
 
   onSubmit(event: any) {
     for (let field of Object.keys(this.formAddNewEmployer.controls)) {

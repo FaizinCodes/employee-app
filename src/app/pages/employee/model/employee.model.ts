@@ -9,3 +9,11 @@ export interface employee {
   status: string
   username: string
 }
+
+
+export interface formData {
+  id: string
+  name: string
+  type: string
+  dataList?: any[]
+}
