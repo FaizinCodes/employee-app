@@ -1,8 +1,8 @@
 <div class="flex flex-col space-y-1 relative">
   <ng-container [ngSwitch]="type">
 
+    <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
     <ng-container *ngSwitchCase="'search-select'">
-      <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
       <mat-select [formControl]="$any(Form).get(id)" [id]="id"
         [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
         class=" py-2.5 px-3 text-gray-900 text-sm rounded-lg" placeholder="Pilih {{id}}">
@@ -19,7 +19,6 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="'select'">
-      <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
       <mat-select [formControl]="$any(Form).get(id)" [id]="id"
         [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
         class=" py-2.5 px-3 text-gray-900 text-sm rounded-lg" placeholder="Pilih status">
@@ -30,14 +29,12 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="'number'">
-      <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
       <input currencyMask [formControl]="$any(Form).get(id)" [id]="id" [name]="id"
         [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
         class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
     </ng-container>
 
     <ng-container *ngSwitchCase="'date'">
-      <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
       <div class="relative">
         <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
           <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
@@ -55,7 +52,6 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="'email'">
-      <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
       <input type="email" [formControl]="$any(Form).get(id)" [id]="id" [name]="id"
         [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
         class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
@@ -63,7 +59,6 @@
     </ng-container>
 
     <ng-container *ngSwitchDefault="">
-      <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
       <input type="text" [formControl]="$any(Form).get(id)" [id]="id" [name]="id"
         [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
         class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
