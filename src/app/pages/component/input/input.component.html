@@ -1,89 +1,81 @@
-<div *ngIf="type == 'text'" class="flex flex-col space-y-1">
-  <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
-  <input type="text" [formControl]="$any(Form).get(id)" [id]="id" [name]="id"
-    [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-    class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-  <ng-container *ngIf="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty))">
-    <p class="text-uk-danger-3">{{name + ' must be filled'}}</p>
-  </ng-container>
-</div>
+<div class="flex flex-col space-y-1 relative">
+  <ng-container [ngSwitch]="type">
 
-<div *ngIf="type == 'search-select'" class="flex flex-col relative">
-  <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
-  <mat-select [formControl]="$any(Form).get(id)" [id]="id"
-    [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-    class=" py-2.5 px-3 text-gray-900 text-sm rounded-lg" placeholder="Pilih {{id}}">
-    <mat-option class="relative w-full">
-      <ngx-mat-select-search placeholderLabel="Cari {{id}}" noEntriesFoundLabel="{{id}} tidak ditemukan"
-        [formControl]="search">
-        <mat-icon ngxMatSelectSearchClear></mat-icon>
-      </ngx-mat-select-search>
-    </mat-option>
-    <mat-option class="capitalize" *ngFor="let item of listShow" [value]="item">
-      {{ item }}
-    </mat-option>
-  </mat-select>
-  <ng-container *ngIf="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty))">
-    <p class="text-uk-danger-3">{{name + ' must be filled'}}</p>
-  </ng-container>
-</div>
+    <ng-container *ngSwitchCase="'search-select'">
+      <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
+      <mat-select [formControl]="$any(Form).get(id)" [id]="id"
+        [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
+        class=" py-2.5 px-3 text-gray-900 text-sm rounded-lg" placeholder="Pilih {{id}}">
+        <mat-option class="relative w-full">
+          <ngx-mat-select-search placeholderLabel="Cari {{id}}" noEntriesFoundLabel="{{id}} tidak ditemukan"
+            [formControl]="search">
+            <mat-icon ngxMatSelectSearchClear></mat-icon>
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option class="capitalize" *ngFor="let item of listShow" [value]="item">
+          {{ item }}
+        </mat-option>
+      </mat-select>
+    </ng-container>
 
-<div *ngIf="type == 'select'" class="flex flex-col space-y-1">
-  <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
-  <mat-select [formControl]="$any(Form).get(id)" [id]="id"
-    [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-    class=" py-2.5 px-3 text-gray-900 text-sm rounded-lg" placeholder="Pilih status">
-    <mat-option class="capitalize" *ngFor="let status of dataList" [value]="status">
-      {{ status }}
-    </mat-option>
-  </mat-select>
-  <ng-container *ngIf="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty))">
-    <p class="text-uk-danger-3">{{name + ' must be filled'}}</p>
-  </ng-container>
-</div>
+    <ng-container *ngSwitchCase="'select'">
+      <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
+      <mat-select [formControl]="$any(Form).get(id)" [id]="id"
+        [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
+        class=" py-2.5 px-3 text-gray-900 text-sm rounded-lg" placeholder="Pilih status">
+        <mat-option class="capitalize" *ngFor="let status of dataList" [value]="status">
+          {{ status }}
+        </mat-option>
+      </mat-select>
+    </ng-container>
 
-<div *ngIf="type == 'number'" class="flex flex-col space-y-1">
-  <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
-  <input currencyMask [formControl]="$any(Form).get(id)" [id]="id" [name]="id"
-    [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-    class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required>
-  <ng-container *ngIf="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty))">
-    <p class="text-uk-danger-3">{{name + ' must be filled'}}</p>
-  </ng-container>
-</div>
+    <ng-container *ngSwitchCase="'number'">
+      <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
+      <input currencyMask [formControl]="$any(Form).get(id)" [id]="id" [name]="id"
+        [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
+        class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+    </ng-container>
 
-<div *ngIf="type == 'date'" class="flex flex-col space-y-1">
-  <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
-  <div class="relative">
-    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-      <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd"
-          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-          clip-rule="evenodd"></path>
-      </svg>
-    </div>
-    <input type="date" [formControl]="$any(Form).get(id)" [id]="id" [name]="id"
-      [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-      class=" text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
-      placeholder="Select date">
-  </div>
+    <ng-container *ngSwitchCase="'date'">
+      <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
+      <div class="relative">
+        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+          <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <input type="date" [formControl]="$any(Form).get(id)" [id]="id" [name]="id"
+          [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
+          class=" text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+          placeholder="Select date">
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'email'">
+      <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
+      <input type="email" [formControl]="$any(Form).get(id)" [id]="id" [name]="id"
+        [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
+        class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+        placeholder="name@email.com">
+    </ng-container>
+
+    <ng-container *ngSwitchDefault="">
+      <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
+      <input type="text" [formControl]="$any(Form).get(id)" [id]="id" [name]="id"
+        [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
+        class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+    </ng-container>
+  </ng-container>
+
   <ng-container *ngIf="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty))">
     <p *ngIf="$any(Form).get(id)?.hasError('required')" class="text-uk-danger-3">{{name + ' must be filled'}}</p>
+
     <p *ngIf="$any(Form).get(id)?.hasError('dateNotValid') && !$any(Form).get(id)?.hasError('required')"
       class="text-uk-danger-3">{{name + 'must lower than today'}}</p>
-  </ng-container>
-</div>
 
-<div *ngIf="type == 'email'" class="flex flex-col space-y-1">
-  <label [for]="id" class="block text-sm font-medium text-gray-900 dark:text-gray-300">{{name}}</label>
-  <input type="email" [formControl]="$any(Form).get(id)" [id]="id" [name]="id"
-    [ngClass]="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty)) ? 'input-red-error' : 'input-bg-active-white'"
-    class=" text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-    placeholder="name@email.com">
-  <ng-container *ngIf="($any(Form).get(id)?.invalid && ($any(Form).get(id)?.touched || $any(Form).get(id)?.dirty))">
-    <p *ngIf="$any(Form).get(id)?.hasError('required')" class="text-uk-danger-3">Email must be filled
-    </p>
     <p *ngIf="$any(Form).get(id)?.hasError('email') && !$any(Form).get(id)?.hasError('required')"
       class="text-uk-danger-3">Email not valid</p>
   </ng-container>
